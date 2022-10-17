@@ -34,12 +34,10 @@ namespace HomeWork3_Zakshevskij_UTS_22
             char[] alph = new char[] { 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И',
                                                 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С',
                                                 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ь', 'Ы', 'Ъ',
-                                                'Э', 'Ю', 'Я', ' ', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж',
-                                                'З', 'И', 'Й' };
+                                                'Э', 'Ю', 'Я'};
             char[] alph1 = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
                                                 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-                                                'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-                                                'I', 'J', 'K' };
+                                                'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
             int P = alph.Length;
             int N = alph1.Length;
             string a = Convert.ToString(Tb.Text);
@@ -47,26 +45,32 @@ namespace HomeWork3_Zakshevskij_UTS_22
             string key = Convert.ToString(Tb_2.Text);
             key = key.ToUpper();
             string result = "";
-            bool o = true, k = true, l = true;
+            bool o = true;
             foreach (char d in key)
             {
+                if (Char.IsWhiteSpace(d))
+                {
+                    MessageBox.Show("Введите ключ без пробелов");
+                    o = false;
+                    break;
+                }    
                 if (Char.IsPunctuation(d))
                 {
                     MessageBox.Show("Введите ключ без знаков препинания");
                     o = false;
+                    break;
                 }
             }
             if (string.IsNullOrEmpty(a))
             {
                 MessageBox.Show("Введите текст для шифрования в поле");
-                k = false;
             }
-            if (string.IsNullOrEmpty(key))
+            else if (string.IsNullOrEmpty(key))
             {
                 MessageBox.Show("Введите ключ в поле");
-                l = false;
+                
             }
-            if ((o == true) && (k==true) && (l==true))
+            else if (o == true)
             {
                 int h = 0;
                 int m = a.Length;
@@ -92,6 +96,10 @@ namespace HomeWork3_Zakshevskij_UTS_22
                     case 0:
                         foreach (char s in a)
                         {
+                            if (Char.IsWhiteSpace(s))
+                            {
+                                result += s;
+                            }
                             if (Char.IsPunctuation(s))
                             {
                                 result += s;
@@ -104,7 +112,7 @@ namespace HomeWork3_Zakshevskij_UTS_22
                             }
                             else if (alph1.Contains(s))
                             {
-                                c = (Array.IndexOf(alph1, s) + Array.IndexOf(alph1, key[key_step])) % N;
+                                c = (Array.IndexOf(alph1, s) + Array.IndexOf(alph1, key[key_step]))% N;
                                 result += alph1[c];
                                 key_step++;
                             }
@@ -113,6 +121,10 @@ namespace HomeWork3_Zakshevskij_UTS_22
                     case 1:
                         foreach (char s in a)
                         {
+                            if (Char.IsWhiteSpace(s))
+                            {
+                                result += s;
+                            }
                             if (Char.IsPunctuation(s))
                             {
                                 result += s;
